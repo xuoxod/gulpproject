@@ -12,6 +12,8 @@ import {
   sassscript,
   sassscriptCompressed,
   sassscriptSourcemap,
+  sassscriptSourcemapCompressed,
+  cleanDist,
 } from "./tasks/index.js";
 
 const { series, parallel } = gulp;
@@ -19,25 +21,29 @@ const { series, parallel } = gulp;
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
-// const buildAll = parallel(
-//   series(javascriptMin, typescriptMin),
-//   series(javascript, typescript)
-// );
+export const buildJavascript = javascript;
 
-const buildAll = parallel(series(javascriptMin), series(javascript));
+export const buildJavascriptMin = javascriptMin;
 
-// const buildTs = series(typescript, typescriptMin);
+export const buildSassscript = sassscript;
 
-const buildJs = series(javascript, javascriptMin);
+export const buildSassscriptCompressed = sassscriptCompressed;
 
-const buildSc = series(sassscript);
+export const buildSassscriptSourcemap = sassscriptSourcemap;
 
-const buildScC = series(sassscriptCompressed);
+export const clean = cleanDist;
 
-const buildScSM = series(sassscriptSourcemap);
+export const buildAll = parallel(
+  series(buildJavascript, buildJavascriptMin),
+  series(buildSassscript, buildSassscriptCompressed, buildSassscriptSourcemap)
+);
 
-// export default buildJs;
+export const buildAllClean = series(
+  clean,
+  parallel(
+    series(buildJavascript, buildJavascriptMin),
+    series(buildSassscript, buildSassscriptCompressed, buildSassscriptSourcemap)
+  )
+);
 
-// export default series(sassscript, sassscriptCompressed, sassscriptSourcemap);
-
-// export default buildTs;
+export default buildAllClean;

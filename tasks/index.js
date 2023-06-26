@@ -1,3 +1,6 @@
+import gulp from "gulp";
+import { deleteSync } from "del";
+
 import { javascript, javascriptMin } from "./javascript/JavascriptTasks.js";
 import { typescript, typescriptMin } from "./typescript/TypescriptTasks.js";
 import {
@@ -7,6 +10,10 @@ import {
   sassscriptSourcemapCompressed,
 } from "./sass/SassTasks.js";
 
+const cleanDist = (cb) => {
+  deleteSync(["dist"], cb());
+};
+
 export {
   javascript,
   javascriptMin,
@@ -14,4 +21,5 @@ export {
   sassscriptCompressed,
   sassscriptSourcemap,
   sassscriptSourcemapCompressed,
+  cleanDist,
 };
