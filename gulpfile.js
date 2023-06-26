@@ -1,10 +1,5 @@
 import gulp from "gulp";
-import sass from "gulp-dart-sass";
-import sourcemaps from "gulp-sourcemaps";
-import uglify from "gulp-uglify";
-import concat from "gulp-concat";
 import url from "url";
-import ts from "gulp-typescript";
 
 import {
   javascript,
@@ -12,7 +7,6 @@ import {
   sassscript,
   sassscriptCompressed,
   sassscriptSourcemap,
-  sassscriptSourcemapCompressed,
   cleanDist,
 } from "./tasks/index.js";
 
