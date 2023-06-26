@@ -1,5 +1,5 @@
-@forward "variables";
+@use "./variables";
 
 .div {
-    background-color:  black;
+    background-color:  variables.$base-background-color;
 }
